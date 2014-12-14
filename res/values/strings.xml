@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">UninstallMonitor</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <!-- This is just a test page -->
+    <string name="uninstall_intent_url">http://www.baidu.com</string>
+
+</resources>
