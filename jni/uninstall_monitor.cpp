@@ -117,7 +117,7 @@ JNIEXPORT void JNICALL Java_com_mutter_uninstallmonitor_MainApp_forkUninstallMon
 			LOGE("fork error");
 		} else if (intent_pid == 0) {
 			LOGI("exec process");
-			// Note: this won't work on Android 5.0, which require the system level permission
+			// Note: this won't work on Android 4.2 and up, which require the system level permission
 			// android.permission.INTERACT_ACROSS_USERS_FULL
 			const char* envp[5] = {
 					"SHELL=/system/bin/sh",

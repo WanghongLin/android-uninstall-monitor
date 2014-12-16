@@ -5,6 +5,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <!-- This is just a test page -->
-    <string name="uninstall_intent_url">http://www.baidu.com</string>
+    <string name="uninstall_intent_url">http://www.google.com</string>
 
 </resources>
