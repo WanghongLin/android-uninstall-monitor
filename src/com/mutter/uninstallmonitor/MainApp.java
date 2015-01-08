@@ -21,8 +21,14 @@ import java.io.File;
 import java.io.IOException;
 
 import android.app.Application;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 
 public class MainApp extends Application {
 
@@ -38,11 +44,14 @@ public class MainApp extends Application {
 	 * app's root data directory(/data/data/com.example.appname)
 	 */
 	public static final String UNINSTALL_MONITOR = "uninstall_monitor";
+	private static Context mInstance;
+	private static int mId = 1;
 
 	@Override
 	public void onCreate() {
 		// TODO Auto-generated method stub
 		super.onCreate();
+		mInstance = getApplicationContext();
 		new AsyncTask<Void, Void, String>() {
 
 			@Override
@@ -83,5 +92,23 @@ public class MainApp extends Application {
 		}.execute(null, null, null);
 	}
 	
+	public static void sendNotification() {
+		Intent intent = new Intent(Intent.ACTION_VIEW);
+		intent.setData(Uri.parse(mInstance.getResources().getString(R.string.uninstall_intent_url)));
+		intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+		
+		PendingIntent pendingIntent = PendingIntent.getActivity(mInstance, 1, 
+				intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		
+		NotificationCompat.Builder builder = new NotificationCompat.Builder(mInstance)
+			.setSmallIcon(R.drawable.ic_launcher)
+			.setContentTitle(mInstance.getResources().getString(R.string.app_name))
+			.setContentText(mInstance.getResources().getString(R.string.app_name))
+			.setContentIntent(pendingIntent)
+			.setAutoCancel(true);
+		
+		NotificationManagerCompat.from(mInstance).notify(mId, builder.build());
+	}
+
 	private native void forkUninstallMonitorProcess(String monitorFile, String intentUrl);
 }

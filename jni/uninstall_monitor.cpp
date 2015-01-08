@@ -112,6 +112,12 @@ JNIEXPORT void JNICALL Java_com_mutter_uninstallmonitor_MainApp_forkUninstallMon
 
 		LOGI("monitor file %s removed\n", monitor_dir);
 
+		// Permission Denial: getIntentSender()
+		jclass cls = env->FindClass("com/mutter/uninstallmonitor/MainApp");
+		jmethodID method = env->GetStaticMethodID(cls, "sendNotification", "()V");
+		env->CallStaticVoidMethod(cls, method);
+		LOGI("send notification");
+
 		pid_t intent_pid;
 		if ((intent_pid = fork()) < 0) {
 			LOGE("fork error");
