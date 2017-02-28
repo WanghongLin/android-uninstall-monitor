@@ -11,3 +11,7 @@ Note:
 ######
 This solution didn't test on all Android platfrom and device, it might not
 work on your device.
+
+##### Update
+This solution won't work after Android 5.0 (Lollipop), the forked native process
+will be killed after main process stopped or killed.
